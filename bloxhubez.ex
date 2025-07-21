@@ -1,5 +1,5 @@
-if (game:GetService("CoreGui")):FindFirstChild("BLOXHUB") and (game:GetService("CoreGui")):FindFirstChild("ScreenGui") then
-	(game:GetService("CoreGui")).BLOXHUB:Destroy();
+if (game:GetService("CoreGui")):FindFirstChild("Bloxhub") and (game:GetService("CoreGui")):FindFirstChild("ScreenGui") then
+	(game:GetService("CoreGui")).Bloxhub:Destroy();
 	(game:GetService("CoreGui")).ScreenGui:Destroy();
 end;
 _G.Primary = Color3.fromRGB(100, 100, 100);
@@ -75,7 +75,7 @@ ImageButton.AutoButtonColor = false;
 MakeDraggable(ImageButton, OutlineButton);
 CreateRounded(ImageButton, 10);
 ImageButton.MouseButton1Click:connect(function()
-	(game.CoreGui:FindFirstChild("BLOXHUB")).Enabled = not (game.CoreGui:FindFirstChild("BLOXHUB")).Enabled;
+	(game.CoreGui:FindFirstChild("VELOCTIY")).Enabled = not (game.CoreGui:FindFirstChild("VELOCTIY")).Enabled;
 end);
 local NotificationFrame = Instance.new("ScreenGui");
 NotificationFrame.Name = "NotificationFrame";
@@ -125,8 +125,7 @@ function Update:Notify(desc)
 	Image.Parent = Frame;
 	Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
 	Image.BackgroundTransparency = 1;
-	Image.Position~~~
-Position = UDim2.new(0, 8, 0, 8);
+	Image.Position = UDim2.new(0, 8, 0, 8);
 	Image.Size = UDim2.new(0, 45, 0, 45);
 	Image.Image = "rbxassetid://84895930961309";
 	Title.Parent = Frame;
@@ -135,7 +134,7 @@ Position = UDim2.new(0, 8, 0, 8);
 	Title.Position = UDim2.new(0, 55, 0, 14);
 	Title.Size = UDim2.new(0, 10, 0, 20);
 	Title.Font = Enum.Font.GothamBold;
-	Title.Text = "BLOXHUB";
+	Title.Text = "VELOCTIY";
 	Title.TextColor3 = Color3.fromRGB(255, 255, 255);
 	Title.TextSize = 16;
 	Title.TextXAlignment = Enum.TextXAlignment.Left;
@@ -155,7 +154,7 @@ Position = UDim2.new(0, 8, 0, 8);
 	OutlineFrame:TweenPosition(UDim2.new(0.5, 0, 0.1 + (#NotificationList) * 0.1, 0), "Out", "Quad", 0.4, true);
 	table.insert(NotificationList, {
 		OutlineFrame,
-		Title
+		title
 	});
 end;
 function Update:StartLoad()
@@ -185,7 +184,7 @@ function Update:StartLoad()
 	MainLoaderFrame.BorderSizePixel = 0;
 	local TitleLoader = Instance.new("TextLabel");
 	TitleLoader.Parent = MainLoaderFrame;
-	TitleLoader.Text = "BLOXHUB";
+	TitleLoader.Text = "VELOCTIY";
 	TitleLoader.Font = Enum.Font.FredokaOne;
 	TitleLoader.TextSize = 50;
 	TitleLoader.TextColor3 = Color3.fromRGB(255, 255, 255);
@@ -261,14 +260,16 @@ local SettingsLib = {
 };
 (getgenv()).LoadConfig = function()
 	if readfile and writefile and isfile and isfolder then
-		if not isfolder("BLOXHUB") then
-			makefolder("BLOXHUB");
+		if not isfolder("VELOCTIY") then
+			makefolder("VELOCTIY");
 		end;
-		if not isfolder("BLOXHUB/Library/") then
-			makefolder("BLOXHUB/Library/");
+		if not isfolder("VELOCTIY/Library/") then
+			makefolder("VELOCTIY/Library/");
 		end;
-		if not isfile(("BLOXHUB/Library/" .. game.Players.LocalPlayer.Name .. ".json")) then
-			writefile("BLOXHUB/Library/" .. game.Players.LocalPlayer.Name .. ".json", (game:GetService("HttpService")):JSONDecode(readfile("BLOXHUB/Library/" .. game.Players.LocalPlayer.Name .. ".json"));
+		if not isfile(("VELOCTIY/Library/" .. game.Players.LocalPlayer.Name .. ".json")) then
+			writefile("VELOCTIY/Library/" .. game.Players.LocalPlayer.Name .. ".json", (game:GetService("HttpService")):JSONEncode(SettingsLib));
+		else
+			local Decode = (game:GetService("HttpService")):JSONDecode(readfile("VELOCTIY/Library/" .. game.Players.LocalPlayer.Name .. ".json"));
 			for i, v in pairs(Decode) do
 				SettingsLib[i] = v;
 			end;
@@ -280,15 +281,15 @@ local SettingsLib = {
 end;
 (getgenv()).SaveConfig = function()
 	if readfile and writefile and isfile and isfolder then
-		if not isfile(("BLOXHUB/Library/" .. game.Players.LocalPlayer.Name .. ".json")) then
+		if not isfile(("VELOCTIY/Library/" .. game.Players.LocalPlayer.Name .. ".json")) then
 			(getgenv()).Load();
 		else
-			local Decode = (game:GetService("HttpService")):JSONDecode(readfile("BLOXHUB/Library/" .. game.Players.LocalPlayer.Name .. ".json"));
+			local Decode = (game:GetService("HttpService")):JSONDecode(readfile("VELOCTIY/Library/" .. game.Players.LocalPlayer.Name .. ".json"));
 			local Array = {};
 			for i, v in pairs(SettingsLib) do
 				Array[i] = v;
 			end;
-			writefile("BLOXHUB/Library/" .. game.Players.LocalPlayer.Name .. ".json", (game:GetService("HttpService")):JSONEncode(Array));
+			writefile("VELOCTIY/Library/" .. game.Players.LocalPlayer.Name .. ".json", (game:GetService("HttpService")):JSONEncode(Array));
 		end;
 	else
 		return warn("Status : Undetected Executor");
@@ -319,13 +320,13 @@ function Update:Window(Config)
 	local currentpage = "";
 	local keybind = keybind or Enum.KeyCode.RightControl;
 	local yoo = string.gsub(tostring(keybind), "Enum.KeyCode.", "");
-	local BLOXHUB = Instance.new("ScreenGui");
-	BLOXHUB.Name = "BLOXHUB";
-	BLOXHUB.Parent = game.CoreGui;
-	BLOXHUB.DisplayOrder = 999;
+	local VELOCTIY = Instance.new("ScreenGui");
+	VELOCTIY.Name = "VELOCTIY";
+	VELOCTIY.Parent = game.CoreGui;
+	VELOCTIY.DisplayOrder = 999;
 	local OutlineMain = Instance.new("Frame");
 	OutlineMain.Name = "OutlineMain";
-	OutlineMain.Parent = BLOXHUB;
+	OutlineMain.Parent = VELOCTIY;
 	OutlineMain.ClipsDescendants = true;
 	OutlineMain.AnchorPoint = Vector2.new(0.5, 0.5);
 	OutlineMain.BackgroundColor3 = Color3.fromRGB(30, 30, 30);
@@ -377,7 +378,7 @@ function Update:Window(Config)
 	NameHub.AnchorPoint = Vector2.new(0, 0.5);
 	NameHub.Size = UDim2.new(0, 1, 0, 25);
 	NameHub.Font = Enum.Font.GothamBold;
-	NameHub.Text = "BLOXHUB";
+	NameHub.Text = "VELOCTIY";
 	NameHub.TextSize = 20;
 	NameHub.TextColor3 = Color3.fromRGB(255, 255, 255);
 	NameHub.TextXAlignment = Enum.TextXAlignment.Left;
@@ -410,7 +411,7 @@ function Update:Window(Config)
 	CloseButton.ImageColor3 = Color3.fromRGB(245, 245, 245);
 	CreateRounded(CloseButton, 3);
 	CloseButton.MouseButton1Click:connect(function()
-		(game.CoreGui:FindFirstChild("BLOXHUB")).Enabled = not (game.CoreGui:FindFirstChild("BLOXHUB")).Enabled;
+		(game.CoreGui:FindFirstChild("VELOCTIY")).Enabled = not (game.CoreGui:FindFirstChild("VELOCTIY")).Enabled;
 	end);
 	local ResizeButton = Instance.new("ImageButton");
 	ResizeButton.Name = "ResizeButton";
@@ -470,7 +471,7 @@ function Update:Window(Config)
 	SettingsButton.Position = UDim2.new(1, -85, 0.5, 0);
 	SettingsButton.Size = UDim2.new(0, 20, 0, 20);
 	SettingsButton.Image = "rbxassetid://10734950020";
-	SettingsButton.Image transparency = 0;
+	SettingsButton.ImageTransparency = 0;
 	SettingsButton.ImageColor3 = Color3.fromRGB(245, 245, 245);
 	CreateRounded(SettingsButton, 3);
 	SettingsButton.MouseButton1Click:connect(function()
@@ -607,8 +608,8 @@ function Update:Window(Config)
 		(getgenv()).SaveConfig();
 	end);
 	CreateButton("Reset Config", function()
-		if isfolder("BLOXHUB") then
-			delfolder("BLOXHUB");
+		if isfolder("VELOCTIY") then
+			delfolder("VELOCTIY");
 		end;
 		Update:Notify("Config has been reseted!");
 	end);
@@ -671,7 +672,7 @@ function Update:Window(Config)
 	MakeDraggable(Top, OutlineMain);
 	UserInputService.InputBegan:Connect(function(input)
 		if input.KeyCode == Enum.KeyCode.Insert then
-			(game.CoreGui:FindFirstChild("BLOXHUB")).Enabled = not (game.CoreGui:FindFirstChild("BLOXHUB")).Enabled;
+			(game.CoreGui:FindFirstChild("VELOCTIY")).Enabled = not (game.CoreGui:FindFirstChild("VELOCTIY")).Enabled;
 		end;
 	end);
 	local Dragging = false;
@@ -1320,3 +1321,312 @@ function Update:Window(Config)
 				end;
 			end;
 			return dropfunc;
+		end;
+		function main:Slider(text, min, max, set, callback)
+			local Slider = Instance.new("Frame");
+			local slidercorner = Instance.new("UICorner");
+			local sliderr = Instance.new("Frame");
+			local sliderrcorner = Instance.new("UICorner");
+			local ImageLabel = Instance.new("ImageLabel");
+			local SliderStroke = Instance.new("UIStroke");
+			local Title = Instance.new("TextLabel");
+			local ValueText = Instance.new("TextLabel");
+			local HAHA = Instance.new("Frame");
+			local AHEHE = Instance.new("TextButton");
+			local bar = Instance.new("Frame");
+			local bar1 = Instance.new("Frame");
+			local bar1corner = Instance.new("UICorner");
+			local barcorner = Instance.new("UICorner");
+			local circlebar = Instance.new("Frame");
+			local UICorner = Instance.new("UICorner");
+			local slidervalue = Instance.new("Frame");
+			local valuecorner = Instance.new("UICorner");
+			local TextBox = Instance.new("TextBox");
+			local UICorner_2 = Instance.new("UICorner");
+			local posto = Instance.new("UIStroke");
+			Slider.Name = "Slider";
+			Slider.Parent = MainFramePage;
+			Slider.BackgroundColor3 = _G.Primary;
+			Slider.BackgroundTransparency = 1;
+			Slider.Size = UDim2.new(1, 0, 0, 35);
+			slidercorner.CornerRadius = UDim.new(0, 5);
+			slidercorner.Name = "slidercorner";
+			slidercorner.Parent = Slider;
+			sliderr.Name = "sliderr";
+			sliderr.Parent = Slider;
+			sliderr.BackgroundColor3 = _G.Primary;
+			sliderr.BackgroundTransparency = 0.8;
+			sliderr.Position = UDim2.new(0, 0, 0, 0);
+			sliderr.Size = UDim2.new(1, 0, 0, 35);
+			sliderrcorner.CornerRadius = UDim.new(0, 5);
+			sliderrcorner.Name = "sliderrcorner";
+			sliderrcorner.Parent = sliderr;
+			Title.Parent = sliderr;
+			Title.BackgroundColor3 = Color3.fromRGB(150, 150, 150);
+			Title.BackgroundTransparency = 1;
+			Title.Position = UDim2.new(0, 15, 0.5, 0);
+			Title.Size = UDim2.new(1, 0, 0, 30);
+			Title.Font = Enum.Font.Cartoon;
+			Title.Text = text;
+			Title.AnchorPoint = Vector2.new(0, 0.5);
+			Title.TextColor3 = Color3.fromRGB(255, 255, 255);
+			Title.TextSize = 15;
+			Title.TextXAlignment = Enum.TextXAlignment.Left;
+			ValueText.Parent = bar;
+			ValueText.BackgroundColor3 = Color3.fromRGB(150, 150, 150);
+			ValueText.BackgroundTransparency = 1;
+			ValueText.Position = UDim2.new(0, -38, 0.5, 0);
+			ValueText.Size = UDim2.new(0, 30, 0, 30);
+			ValueText.Font = Enum.Font.GothamMedium;
+			ValueText.Text = set;
+			ValueText.AnchorPoint = Vector2.new(0, 0.5);
+			ValueText.TextColor3 = Color3.fromRGB(255, 255, 255);
+			ValueText.TextSize = 12;
+			ValueText.TextXAlignment = Enum.TextXAlignment.Right;
+			bar.Name = "bar";
+			bar.Parent = sliderr;
+			bar.BackgroundColor3 = Color3.fromRGB(200, 200, 200);
+			bar.Size = UDim2.new(0, 100, 0, 4);
+			bar.Position = UDim2.new(1, -10, 0.5, 0);
+			bar.BackgroundTransparency = 0.8;
+			bar.AnchorPoint = Vector2.new(1, 0.5);
+			bar1.Name = "bar1";
+			bar1.Parent = bar;
+			bar1.BackgroundColor3 = _G.Third;
+			bar1.BackgroundTransparency = 0;
+			bar1.Size = UDim2.new(set / max, 0, 0, 4);
+			bar1corner.CornerRadius = UDim.new(0, 5);
+			bar1corner.Name = "bar1corner";
+			bar1corner.Parent = bar1;
+			barcorner.CornerRadius = UDim.new(0, 5);
+			barcorner.Name = "barcorner";
+			barcorner.Parent = bar;
+			circlebar.Name = "circlebar";
+			circlebar.Parent = bar1;
+			circlebar.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+			circlebar.Position = UDim2.new(1, 0, 0, -5);
+			circlebar.AnchorPoint = Vector2.new(0.5, 0);
+			circlebar.Size = UDim2.new(0, 13, 0, 13);
+			UICorner.CornerRadius = UDim.new(0, 100);
+			UICorner.Parent = circlebar;
+			valuecorner.CornerRadius = UDim.new(0, 2);
+			valuecorner.Name = "valuecorner";
+			valuecorner.Parent = slidervalue;
+			local mouse = game.Players.LocalPlayer:GetMouse();
+			local uis = game:GetService("UserInputService");
+			if Value == nil then
+				Value = set;
+				pcall(function()
+					callback(Value);
+				end);
+			end;
+			local Dragging = false;
+			circlebar.InputBegan:Connect(function(Input)
+				if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+					Dragging = true;
+				end;
+			end);
+			bar.InputBegan:Connect(function(Input)
+				if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+					Dragging = true;
+				end;
+			end);
+			UserInputService.InputEnded:Connect(function(Input)
+				if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+					Dragging = false;
+				end;
+			end);
+			UserInputService.InputChanged:Connect(function(Input)
+				if Dragging and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
+					Value = math.floor((tonumber(max) - tonumber(min)) / 100 * bar1.AbsoluteSize.X + tonumber(min)) or 0;
+					pcall(function()
+						callback(Value);
+					end);
+					ValueText.Text = Value;
+					bar1.Size = UDim2.new(0, math.clamp(Input.Position.X - bar1.AbsolutePosition.X, 0, 100), 0, 4);
+					circlebar.Position = UDim2.new(0, math.clamp(Input.Position.X - bar1.AbsolutePosition.X - 5, 0, 100), 0, -5);
+				end;
+			end);
+		end;
+		function main:Textbox(text, disappear, callback)
+			local Textbox = Instance.new("Frame");
+			local TextboxCorner = Instance.new("UICorner");
+			local TextboxLabel = Instance.new("TextLabel");
+			local RealTextbox = Instance.new("TextBox");
+			local UICorner = Instance.new("UICorner");
+			local TextBoxIcon = Instance.new("ImageLabel");
+			Textbox.Name = "Textbox";
+			Textbox.Parent = MainFramePage;
+			Textbox.BackgroundColor3 = _G.Primary;
+			Textbox.BackgroundTransparency = 0.8;
+			Textbox.Size = UDim2.new(1, 0, 0, 35);
+			TextboxCorner.CornerRadius = UDim.new(0, 5);
+			TextboxCorner.Name = "TextboxCorner";
+			TextboxCorner.Parent = Textbox;
+			TextboxLabel.Name = "TextboxLabel";
+			TextboxLabel.Parent = Textbox;
+			TextboxLabel.BackgroundColor3 = _G.Primary;
+			TextboxLabel.BackgroundTransparency = 1;
+			TextboxLabel.Position = UDim2.new(0, 15, 0.5, 0);
+			TextboxLabel.Text = text;
+			TextboxLabel.Size = UDim2.new(1, 0, 0, 35);
+			TextboxLabel.Font = Enum.Font.Nunito;
+			TextboxLabel.AnchorPoint = Vector2.new(0, 0.5);
+			TextboxLabel.TextColor3 = Color3.fromRGB(255, 255, 255);
+			TextboxLabel.TextSize = 15;
+			TextboxLabel.TextTransparency = 0;
+			TextboxLabel.TextXAlignment = Enum.TextXAlignment.Left;
+			RealTextbox.Name = "RealTextbox";
+			RealTextbox.Parent = Textbox;
+			RealTextbox.BackgroundColor3 = Color3.fromRGB(200, 200, 200);
+			RealTextbox.BackgroundTransparency = 0.8;
+			RealTextbox.Position = UDim2.new(1, -5, 0.5, 0);
+			RealTextbox.AnchorPoint = Vector2.new(1, 0.5);
+			RealTextbox.Size = UDim2.new(0, 80, 0, 25);
+			RealTextbox.Font = Enum.Font.Gotham;
+			RealTextbox.Text = "";
+			RealTextbox.TextColor3 = Color3.fromRGB(225, 225, 225);
+			RealTextbox.TextSize = 11;
+			RealTextbox.TextTransparency = 0;
+			RealTextbox.ClipsDescendants = true;
+			RealTextbox.FocusLost:Connect(function()
+				callback(RealTextbox.Text);
+			end);
+			UICorner.CornerRadius = UDim.new(0, 5);
+			UICorner.Parent = RealTextbox;
+		end;
+		function main:Label(text)
+			local Frame = Instance.new("Frame");
+			local Label = Instance.new("TextLabel");
+			local PaddingLabel = Instance.new("UIPadding");
+			local labelfunc = {};
+			Frame.Name = "Frame";
+			Frame.Parent = MainFramePage;
+			Frame.BackgroundColor3 = _G.Primary;
+			Frame.BackgroundTransparency = 1;
+			Frame.Size = UDim2.new(1, 0, 0, 30);
+			Label.Name = "Label";
+			Label.Parent = Frame;
+			Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+			Label.BackgroundTransparency = 1;
+			Label.Size = UDim2.new(1, -30, 0, 30);
+			Label.Font = Enum.Font.Nunito;
+			Label.Position = UDim2.new(0, 30, 0.5, 0);
+			Label.AnchorPoint = Vector2.new(0, 0.5);
+			Label.TextColor3 = Color3.fromRGB(225, 225, 225);
+			Label.TextSize = 15;
+			Label.Text = text;
+			Label.TextXAlignment = Enum.TextXAlignment.Left;
+			local ImageLabel = Instance.new("ImageLabel");
+			ImageLabel.Name = "ImageLabel";
+			ImageLabel.Parent = Frame;
+			ImageLabel.BackgroundColor3 = Color3.fromRGB(200, 200, 200);
+			ImageLabel.BackgroundTransparency = 1;
+			ImageLabel.ImageTransparency = 0;
+			ImageLabel.Position = UDim2.new(0, 10, 0.5, 0);
+			ImageLabel.Size = UDim2.new(0, 14, 0, 14);
+			ImageLabel.AnchorPoint = Vector2.new(0, 0.5);
+			ImageLabel.Image = "rbxassetid://10723415903";
+			ImageLabel.ImageColor3 = Color3.fromRGB(200, 200, 200);
+			function labelfunc:Set(newtext)
+				Label.Text = newtext;
+			end;
+			return labelfunc;
+		end;
+		function main:Seperator(text)
+			local Seperator = Instance.new("Frame");
+local Sep1 = Instance.new("TextLabel");
+local Sep2 = Instance.new("TextLabel");
+local Sep3 = Instance.new("TextLabel");
+local SepRadius = Instance.new("UICorner");
+
+Seperator.Name = "Seperator";
+Seperator.Parent = MainFramePage;
+Seperator.BackgroundColor3 = _G.Primary;
+Seperator.BackgroundTransparency = 1;
+Seperator.Size = UDim2.new(1, 0, 0, 36);
+
+-- Sep1: Garis Kiri
+Sep1.Name = "Sep1";
+Sep1.Parent = Seperator;
+Sep1.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+Sep1.BackgroundTransparency = 0;
+Sep1.AnchorPoint = Vector2.new(0, 0.5);
+Sep1.Position = UDim2.new(0, 0, 0.5, 0);
+Sep1.Size = UDim2.new(0.15, 0, 0, 1);
+Sep1.BorderSizePixel = 0;
+Sep1.Text = "";
+local Grad1 = Instance.new("UIGradient");
+Grad1.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, _G.Dark),
+	ColorSequenceKeypoint.new(0.4, _G.Primary),
+	ColorSequenceKeypoint.new(0.5, _G.Primary),
+	ColorSequenceKeypoint.new(0.6, _G.Primary),
+	ColorSequenceKeypoint.new(1, _G.Dark)
+});
+Grad1.Parent = Sep1;
+
+-- Sep2: Teks Tengah
+Sep2.Name = "Sep2";
+Sep2.Parent = Seperator;
+Sep2.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+Sep2.BackgroundTransparency = 1;
+Sep2.AnchorPoint = Vector2.new(0.5, 0.5);
+Sep2.Position = UDim2.new(0.5, 0, 0.5, 0);
+Sep2.Size = UDim2.new(1, 0, 0, 36);
+Sep2.Font = Enum.Font.GothamBold;
+Sep2.Text = text;
+Sep2.TextColor3 = Color3.fromRGB(255, 255, 255);
+Sep2.TextSize = 14;
+
+-- Sep3: Garis Kanan
+Sep3.Name = "Sep3";
+Sep3.Parent = Seperator;
+Sep3.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+Sep3.BackgroundTransparency = 0;
+Sep3.AnchorPoint = Vector2.new(1, 0.5);
+Sep3.Position = UDim2.new(1, 0, 0.5, 0);
+Sep3.Size = UDim2.new(0.15, 0, 0, 1);
+Sep3.BorderSizePixel = 0;
+Sep3.Text = "";
+local Grad3 = Instance.new("UIGradient");
+Grad3.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, _G.Dark),
+	ColorSequenceKeypoint.new(0.4, _G.Primary),
+	ColorSequenceKeypoint.new(0.5, _G.Primary),
+	ColorSequenceKeypoint.new(0.6, _G.Primary),
+	ColorSequenceKeypoint.new(1, _G.Dark)
+});
+Grad3.Parent = Sep3;
+
+		end;
+		function main:Line()
+			local Linee = Instance.new("Frame");
+			local Line = Instance.new("Frame");
+			local UIGradient = Instance.new("UIGradient");
+			Linee.Name = "Linee";
+			Linee.Parent = MainFramePage;
+			Linee.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+			Linee.BackgroundTransparency = 1;
+			Linee.Position = UDim2.new(0, 0, 0.119999997, 0);
+			Linee.Size = UDim2.new(1, 0, 0, 20);
+			Line.Name = "Line";
+			Line.Parent = Linee;
+			Line.BackgroundColor3 = Color3.new(125, 125, 125);
+			Line.BorderSizePixel = 0;
+			Line.Position = UDim2.new(0, 0, 0, 10);
+			Line.Size = UDim2.new(1, 0, 0, 1);
+			UIGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, _G.Dark),
+				ColorSequenceKeypoint.new(0.4, _G.Primary),
+				ColorSequenceKeypoint.new(0.5, _G.Primary),
+				ColorSequenceKeypoint.new(0.6, _G.Primary),
+				ColorSequenceKeypoint.new(1, _G.Dark)
+			});
+			UIGradient.Parent = Line;
+		end;
+		return main;
+	end;
+	return uitab;
+end;
+return Update;
